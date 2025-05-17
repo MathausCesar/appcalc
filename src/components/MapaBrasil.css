@@ -1,5 +1,3 @@
-/* MapaBrasil.css atualizado com ajuste visual para logos */
-
 .mapa-wrapper {
   position: relative;
   max-width: 900px;
@@ -61,7 +59,7 @@
   color: #00ffaa;
 }
 
-.clientes-logos {
+.clientes-container {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -69,20 +67,40 @@
   justify-content: flex-start;
 }
 
-.clientes-logos img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  background: #222;
-  border-radius: 8px;
-  padding: 6px;
-  box-shadow: 0 0 4px #00000055;
-  transition: transform 0.2s ease-in-out;
+.cliente-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #111;
+  padding: 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 80px;
 }
 
-.clientes-logos img:hover {
+.cliente-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #222;
+  padding: 6px;
+  transition: transform 0.3s ease;
+}
+
+.cliente-card.ativo {
+  background-color: #222;
   transform: scale(1.05);
   box-shadow: 0 0 10px #00ffaa88;
+}
+
+.cliente-nome {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: #fff;
+  text-align: center;
+  transition: opacity 0.3s ease;
 }
 
 @keyframes fadeIn {

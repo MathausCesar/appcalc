@@ -18,7 +18,7 @@ const clientesPorEstado: Record<string, { nome: string; logo: string }[]> = {
   ],
   SC: [
     { nome: 'Oliveira e Antunes Advogados Associados', logo: '/logos/logooliveiraantunes.PNG' },
-    { nome: 'Goes Nicoladelli Advogados Associados', logo: '/logos/logogoesnicoladelli.PNG' },
+    { nome: 'Goes Nicoladelli Advogados Associados', logo: '/logos/logogoesnicoladelli.png' },
     { nome: 'Pamplona e Honjoya Sociedade de Advogados', logo: '/logos/logopamplona.png' },
   ],
   RS: [
@@ -38,12 +38,14 @@ const clientesPorEstado: Record<string, { nome: string; logo: string }[]> = {
 export function MapaBrasilInterativo() {
   const [estadoAtivo, setEstadoAtivo] = useState<string | null>(null);
   const [estadoHover, setEstadoHover] = useState<string | null>(null);
+  const [logoSelecionada, setLogoSelecionada] = useState<number | null>(null);
 
   const handleClick = (e: React.MouseEvent<SVGElement>) => {
     const id = (e.target as SVGElement).id;
     const sigla = id.replace('BR', '');
     if (clientesPorEstado[sigla]) {
       setEstadoAtivo(sigla);
+      setLogoSelecionada(null); // resetar logo ativa ao trocar estado
     } else {
       setEstadoAtivo(null);
     }
@@ -79,14 +81,20 @@ export function MapaBrasilInterativo() {
         {estadoAtivo && clientesPorEstado[estadoAtivo] && (
           <div className="popup">
             <h3>{estadoAtivo}</h3>
-            <div className="clientes-logos">
+            <div className="clientes-container">
               {clientesPorEstado[estadoAtivo].map((cliente, index) => (
-                <img
+                <div
                   key={index}
-                  src={cliente.logo}
-                  alt={cliente.nome}
-                  title={cliente.nome}
-                />
+                  className={`cliente-card ${logoSelecionada === index ? 'ativo' : ''}`}
+                  onClick={() =>
+                    setLogoSelecionada(index === logoSelecionada ? null : index)
+                  }
+                >
+                  <img src={cliente.logo} alt={cliente.nome} />
+                  {logoSelecionada === index && (
+                    <div className="cliente-nome">{cliente.nome}</div>
+                  )}
+                </div>
               ))}
             </div>
           </div>

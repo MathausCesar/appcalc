@@ -20,24 +20,26 @@ const fatorSistema: Record<string, number> = {
 function App() {
   const [nomeEscritorio, setNomeEscritorio] = useState('');
   const [perfil, setPerfil] = useState('massificado');
-  const [tempoMin, setTempoMin] = useState(0);
-  const [controladoria, setControladoria] = useState(1);
+  const [nAdvogados, setNAdvogados] = useState<number | ''>('');
+  const [nProcessos, setNProcessos] = useState<number | ''>('');
+  const [tempoMin, setTempoMin] = useState<number | ''>('');
+  const [controladoria, setControladoria] = useState<number | ''>('');
   const [sistema, setSistema] = useState('nenhum');
-  const [nProcessos, setNProcessos] = useState(0);
-  const [nAdvogados, setNAdvogados] = useState(1);
 
   const valorHora = valorHoraPorPerfil[perfil];
   const fator = fatorSistema[sistema];
 
-  const tempoHoraDia = (tempoMin / 60) * controladoria * fator;
+  // Garantir que os cálculos usem 0 se estiverem vazios
+  const tempoHoraDia = ((Number(tempoMin) || 0) / 60) * (Number(controladoria) || 0) * fator;
   const tempoMes = tempoHoraDia * 22;
   const perdaMensal = tempoMes * valorHora;
-  const perdaDiariaPorPessoa = perdaMensal / (controladoria * 22);
+  const perdaDiariaPorPessoa = (Number(controladoria) || 0) > 0 ? perdaMensal / ((Number(controladoria) || 0) * 22) : 0;
 
   return (
     <div className="container">
       <div className="section">
-        <h2>📊 Calculadora Jurídica</h2>
+        <h2>📊 Calculadora de Eficiência</h2>
+
 
         <div className="input-group">
           <label>Nome do Escritório:</label>
@@ -60,20 +62,46 @@ function App() {
         </div>
 
         <div className="input-group">
-          <label>Tempo médio por dia com publicações (minutos):</label>
+          <label>Número de Advogados:</label>
           <input
             type="number"
-            value={tempoMin}
-            onChange={e => setTempoMin(Number(e.target.value))}
+            value={nAdvogados}
+            onChange={e =>
+              setNAdvogados(e.target.value === '' ? '' : Number(e.target.value))
+            }
           />
         </div>
 
         <div className="input-group">
-          <label>Profissionais de Controladoria:</label>
+          <label>Número de Processos:</label>
+          <input
+            type="number"
+            value={nProcessos}
+            onChange={e =>
+              setNProcessos(e.target.value === '' ? '' : Number(e.target.value))
+            }
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Tempo Diário com Tratamento de Publicações e Distribuição de Tarefas (minutos):</label>
+          <input
+            type="number"
+            value={tempoMin}
+            onChange={e =>
+              setTempoMin(e.target.value === '' ? '' : Number(e.target.value))
+            }
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Quantas Pessoas cuidam dessa rotina?</label>
           <input
             type="number"
             value={controladoria}
-            onChange={e => setControladoria(Number(e.target.value))}
+            onChange={e =>
+              setControladoria(e.target.value === '' ? '' : Number(e.target.value))
+            }
           />
         </div>
 
@@ -87,37 +115,19 @@ function App() {
           </select>
         </div>
 
-        <div className="input-group">
-          <label>Número de Processos Ativos:</label>
-          <input
-            type="number"
-            value={nProcessos}
-            onChange={e => setNProcessos(Number(e.target.value))}
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Número de Advogados no Escritório:</label>
-          <input
-            type="number"
-            value={nAdvogados}
-            onChange={e => setNAdvogados(Number(e.target.value))}
-          />
-        </div>
-
-        <div className="resultado">
-          <h3>Resultados:</h3>
-          <p><strong>Tempo desperdiçado por mês:</strong> {tempoMes.toFixed(2)} horas</p>
-          <p><strong>R$ desperdiçado por mês:</strong> R$ {perdaMensal.toFixed(2)}</p>
-          <p><strong>R$ perdido por colaborador por dia:</strong> R$ {perdaDiariaPorPessoa.toFixed(2)}</p>
-        </div>
+       <div className="resultado">
+  <h3>Resultado:</h3>
+  <p><strong>⏳ Quantas horas você está perdendo:</strong> {tempoMes.toFixed(2)} horas</p>
+  <p><strong>💰 Quanto você pode economizar:</strong> R$ {perdaMensal.toFixed(2)}</p>
+  <p><strong>👤 Quanto isso custa diariamente por colaborador:</strong> R$ {perdaDiariaPorPessoa.toFixed(2)}</p>
+</div>
       </div>
 
       <div className="section">
         <DashboardCarousel
           nomeEscritorio={nomeEscritorio}
-          nProcessos={nProcessos}
-          nAdvogados={nAdvogados}
+          nProcessos={Number(nProcessos) || 0}
+          nAdvogados={Number(nAdvogados) || 0}
           tempoMes={tempoMes}
           perdaMensal={perdaMensal}
         />
