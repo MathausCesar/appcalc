@@ -5,17 +5,33 @@ import './MapaBrasil.css';
 
 const clientesPorEstado: Record<string, { nome: string; logo: string }[]> = {
   SP: [
-    { nome: 'Mattos Filho', logo: '/logos/mattos.png' },
-    { nome: 'Pinheiro Neto', logo: '/logos/pinheiro.png' },
-  ],
-  RJ: [
-    { nome: 'Veirano Advogados', logo: '/logos/veirano.png' },
+    { nome: 'Nelson Wilians Advogados', logo: '/logos/logonw.png' },
+    { nome: 'Crespo & Caires Advogados', logo: '/logos/logocrespoecaires.jpg' },
+    { nome: 'Perez de Rezende Advocacia', logo: '/logos/logoperezderezende.png' },
+    { nome: 'Caique Castro Sociedade de Advocacia', logo: '/logos/logocaiquecastro.jpeg' },
   ],
   PR: [
-    { nome: 'Arns de Oliveira', logo: '/logos/arns.png' },
+    { nome: 'Pereira Gionedis Advogados', logo: '/logos/logopereiragionedis.PNG' },
+    { nome: 'Agencia de Fomento do Paraná', logo: '/logos/logoagenciadefomento.PNG' },
+    { nome: 'Sanepar', logo: '/logos/logosanepar.PNG' },
+    { nome: 'Natividade Sociedade de Advogados', logo: '/logos/logonatividade.png' },
   ],
-  MG: [
-    { nome: 'Ernesto Borges', logo: '/logos/ernesto.png' },
+  SC: [
+    { nome: 'Oliveira e Antunes Advogados Associados', logo: '/logos/logooliveiraantunes.PNG' },
+    { nome: 'Goes Nicoladelli Advogados Associados', logo: '/logos/logogoesnicoladelli.PNG' },
+    { nome: 'Pamplona e Honjoya Sociedade de Advogados', logo: '/logos/logopamplona.png' },
+  ],
+  RS: [
+    { nome: 'Anildo Advogado', logo: '/logos/logoanildo.png' },
+    { nome: 'Andrade Maia Advogados', logo: '/logos/logoandrademaia.png' },
+    { nome: 'Antinolfi Moller e Albornoz Advogados Associados', logo: '/logos/logoantinolfi.png' },
+  ],
+  DF: [
+    { nome: 'Dunice & Marcon Advogados Associados', logo: '/logos/logodunicemarcon.png' },
+  ],
+  MS: [
+    { nome: 'Mascarenhas Barbosa Sociedade de Advogados', logo: '/logos/logomascarenhas.PNG' },
+    { nome: 'Assis Castro Vigo Advogados', logo: '/logos/logoacvadvogados.PNG' },
   ],
 };
 
@@ -25,8 +41,9 @@ export function MapaBrasilInterativo() {
 
   const handleClick = (e: React.MouseEvent<SVGElement>) => {
     const id = (e.target as SVGElement).id;
-    if (id && clientesPorEstado[id]) {
-      setEstadoAtivo(id);
+    const sigla = id.replace('BR', '');
+    if (clientesPorEstado[sigla]) {
+      setEstadoAtivo(sigla);
     } else {
       setEstadoAtivo(null);
     }
@@ -34,7 +51,8 @@ export function MapaBrasilInterativo() {
 
   const handleMouseEnter = (e: React.MouseEvent<SVGElement>) => {
     const id = (e.target as SVGElement).id;
-    if (id) setEstadoHover(id);
+    const sigla = id.replace('BR', '');
+    setEstadoHover(sigla);
   };
 
   const handleMouseLeave = () => {
@@ -61,12 +79,16 @@ export function MapaBrasilInterativo() {
         {estadoAtivo && clientesPorEstado[estadoAtivo] && (
           <div className="popup">
             <h3>{estadoAtivo}</h3>
-            {clientesPorEstado[estadoAtivo].map((cliente, index) => (
-              <div key={index} className="cliente">
-                <img src={cliente.logo} alt={cliente.nome} />
-                <span>{cliente.nome}</span>
-              </div>
-            ))}
+            <div className="clientes-logos">
+              {clientesPorEstado[estadoAtivo].map((cliente, index) => (
+                <img
+                  key={index}
+                  src={cliente.logo}
+                  alt={cliente.nome}
+                  title={cliente.nome}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>

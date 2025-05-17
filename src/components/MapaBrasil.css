@@ -1,3 +1,5 @@
+/* MapaBrasil.css atualizado com ajuste visual para logos */
+
 .mapa-wrapper {
   position: relative;
   max-width: 900px;
@@ -11,6 +13,10 @@
 }
 
 .svg-mapa path {
+  fill: transparent; /* clique em toda a área do estado */
+  stroke: url(#grad);
+  stroke-width: 2;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
@@ -55,19 +61,28 @@
   color: #00ffaa;
 }
 
-.cliente {
+.clientes-logos {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  justify-content: flex-start;
 }
 
-.cliente img {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  object-fit: cover;
-  background-color: #333;
+.clientes-logos img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: #222;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 0 4px #00000055;
+  transition: transform 0.2s ease-in-out;
+}
+
+.clientes-logos img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00ffaa88;
 }
 
 @keyframes fadeIn {
