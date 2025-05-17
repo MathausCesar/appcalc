@@ -47,7 +47,12 @@ export function DashboardProcessos({ nomeEscritorio, nProcessos, nAdvogados }: D
           <YAxis />
           <Tooltip />
           <Bar dataKey="valor" fill="#00ffaa">
-            <LabelList dataKey="valor" position="top" formatter={(v) => v.toFixed(0)} />
+            <LabelList
+  dataKey="valor"
+  position="top"
+  formatter={(v: number) => v.toFixed(0)}
+/>
+
           </Bar>
         </BarChart>
       </ResponsiveContainer>
