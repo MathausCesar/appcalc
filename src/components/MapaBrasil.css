@@ -1,0 +1,115 @@
+.mapa-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.svg-mapa {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.svg-mapa path {
+  transition: all 0.3s ease;
+}
+
+.svg-mapa path:hover {
+  filter: brightness(1.6);
+  stroke-width: 3;
+}
+
+.tooltip-sigla {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #111;
+  color: #00ffaa;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 15;
+}
+
+.popup {
+  position: absolute;
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #00ffaa;
+  color: white;
+  z-index: 10;
+  max-width: 300px;
+  box-shadow: 0 0 10px #00ffaa55;
+  animation: fadeIn 0.2s ease-in-out;
+  top: 50%;
+  left: 60%;
+  transform: translateY(-50%);
+}
+
+.popup h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #00ffaa;
+}
+
+.cliente {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cliente img {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-color: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Destaque ativo para todos os 27 estados brasileiros */
+.svg-mapa.ativo-AC path[id='AC'],
+.svg-mapa.ativo-AL path[id='AL'],
+.svg-mapa.ativo-AP path[id='AP'],
+.svg-mapa.ativo-AM path[id='AM'],
+.svg-mapa.ativo-BA path[id='BA'],
+.svg-mapa.ativo-CE path[id='CE'],
+.svg-mapa.ativo-DF path[id='DF'],
+.svg-mapa.ativo-ES path[id='ES'],
+.svg-mapa.ativo-GO path[id='GO'],
+.svg-mapa.ativo-MA path[id='MA'],
+.svg-mapa.ativo-MT path[id='MT'],
+.svg-mapa.ativo-MS path[id='MS'],
+.svg-mapa.ativo-MG path[id='MG'],
+.svg-mapa.ativo-PA path[id='PA'],
+.svg-mapa.ativo-PB path[id='PB'],
+.svg-mapa.ativo-PR path[id='PR'],
+.svg-mapa.ativo-PE path[id='PE'],
+.svg-mapa.ativo-PI path[id='PI'],
+.svg-mapa.ativo-RJ path[id='RJ'],
+.svg-mapa.ativo-RN path[id='RN'],
+.svg-mapa.ativo-RS path[id='RS'],
+.svg-mapa.ativo-RO path[id='RO'],
+.svg-mapa.ativo-RR path[id='RR'],
+.svg-mapa.ativo-SC path[id='SC'],
+.svg-mapa.ativo-SP path[id='SP'],
+.svg-mapa.ativo-SE path[id='SE'],
+.svg-mapa.ativo-TO path[id='TO'] {
+  stroke: #ffffff;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px #00ffaa);
+}
